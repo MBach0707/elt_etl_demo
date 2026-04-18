@@ -1,4 +1,5 @@
 URL = 'https://api.open-meteo.com/v1/forecast'
+OUTPUT_FILE_NAME = 'OpenMeteoData'
 LAT = 55.69
 LONG = 12.59
 VARIABLES = {
