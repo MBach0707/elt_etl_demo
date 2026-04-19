@@ -1,23 +1,9 @@
-from config import URL, LAT, LONG, VARIABLES
-import pandas as pd
-import requests
+from extract import extract
+from transform import transform
+from load_csv import load_csv
 
-def extract():
-    params = {
-        'latitude': LAT,
-        'longitude': LONG,
-        'hourly': list(VARIABLES.keys())
-    }
-    r = requests.get(URL, params=params)
-
-    raw_data = r.json()
-
-    return raw_data
-
-
-def transform():
+def run_etl():
     raw_data = extract()
-    df = pd.DataFrame(raw_data)
-    return df
-
-print(transform())
+    data = transform(raw_data)
+    load_csv(data)
+    return 

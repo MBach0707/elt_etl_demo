@@ -6,5 +6,4 @@ def transform(raw_data):
     for i in VARIABLES.keys():
         df = df[df[i] >= VARIABLES[i]['min']]
         df = df[df[i] <= VARIABLES[i]['max']]
-    
     return df
