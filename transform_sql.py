@@ -9,5 +9,5 @@ def transform_sql():
         conditions.append(f"{var} <= {limits['max']}")
     where_clause = " AND ".join(conditions)
 
-    df = pd.read_sql(f"SELECT * FROM {TABLE_NAME} where {where_clause}" , sqlite3.connect(DB_NAME))
+    df = pd.read_sql(f"SELECT * FROM {TABLE_NAME} where {where_clause}", sqlite3.connect(DB_NAME))
     return df

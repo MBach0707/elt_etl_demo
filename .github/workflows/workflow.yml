@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+
+  lint-job:
+    runs-on: ubuntu-latest
+
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build image
+        run: docker build -t elt-etl-demo .
+
+      - name: Run linter (syntax test)
+        run: docker run elt-etl-demo ruff check .
+
+
+  test-data-job:
+    runs-on: ubuntu-latest
+    needs: lint-job
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build image
+        run: docker build -t elt-etl-demo .
+
+      - name: Run pytest
+        run: docker run -v $(pwd)/tests:/app/tests -v $(pwd)/conftest.py:/app/conftest.py elt-etl-demo pytest tests/
